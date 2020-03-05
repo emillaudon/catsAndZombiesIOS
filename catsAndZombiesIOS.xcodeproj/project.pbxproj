@@ -15,6 +15,9 @@
 		20214F952411522400455EE1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 20214F932411522400455EE1 /* LaunchScreen.storyboard */; };
 		20214FA02411522400455EE1 /* catsAndZombiesIOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20214F9F2411522400455EE1 /* catsAndZombiesIOSTests.swift */; };
 		20214FAB2411522400455EE1 /* catsAndZombiesIOSUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20214FAA2411522400455EE1 /* catsAndZombiesIOSUITests.swift */; };
+		20214FB92411735C00455EE1 /* Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20214FB82411735C00455EE1 /* Map.swift */; };
+		20214FBB2411AE5B00455EE1 /* Cat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20214FBA2411AE5B00455EE1 /* Cat.swift */; };
+		20214FBD2411AEF300455EE1 /* Point.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20214FBC2411AEF300455EE1 /* Point.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +52,9 @@
 		20214FA62411522400455EE1 /* catsAndZombiesIOSUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = catsAndZombiesIOSUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		20214FAA2411522400455EE1 /* catsAndZombiesIOSUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = catsAndZombiesIOSUITests.swift; sourceTree = "<group>"; };
 		20214FAC2411522400455EE1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		20214FB82411735C00455EE1 /* Map.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Map.swift; sourceTree = "<group>"; };
+		20214FBA2411AE5B00455EE1 /* Cat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cat.swift; sourceTree = "<group>"; };
+		20214FBC2411AEF300455EE1 /* Point.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Point.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,7 +108,10 @@
 				20214F882411522300455EE1 /* AppDelegate.swift */,
 				20214F8A2411522300455EE1 /* SceneDelegate.swift */,
 				20214F8C2411522300455EE1 /* ViewController.swift */,
+				20214FBA2411AE5B00455EE1 /* Cat.swift */,
+				20214FBC2411AEF300455EE1 /* Point.swift */,
 				20214F8E2411522300455EE1 /* Main.storyboard */,
+				20214FB82411735C00455EE1 /* Map.swift */,
 				20214F912411522400455EE1 /* Assets.xcassets */,
 				20214F932411522400455EE1 /* LaunchScreen.storyboard */,
 				20214F962411522400455EE1 /* Info.plist */,
@@ -261,6 +270,9 @@
 			files = (
 				20214F8D2411522300455EE1 /* ViewController.swift in Sources */,
 				20214F892411522300455EE1 /* AppDelegate.swift in Sources */,
+				20214FBD2411AEF300455EE1 /* Point.swift in Sources */,
+				20214FBB2411AE5B00455EE1 /* Cat.swift in Sources */,
+				20214FB92411735C00455EE1 /* Map.swift in Sources */,
 				20214F8B2411522300455EE1 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -435,6 +447,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = MQL93NCD9C;
 				INFOPLIST_FILE = catsAndZombiesIOS/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -452,6 +465,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = MQL93NCD9C;
 				INFOPLIST_FILE = catsAndZombiesIOS/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
