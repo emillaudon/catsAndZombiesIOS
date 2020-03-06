@@ -8,8 +8,9 @@
 
 import UIKit
 
-class ViewController: UIViewController{
+class ViewController: UIViewController, UIGestureRecognizerDelegate{
     
+    @IBOutlet var backGroundView: UIView!
     @IBOutlet var backgroundLayers: [UIImageView]!
     @IBOutlet weak var positionLabel: UILabel!
     @IBOutlet var gestureRecognizers: [UISwipeGestureRecognizer]!
@@ -18,6 +19,7 @@ class ViewController: UIViewController{
     
     @IBOutlet weak var catView: UIView!
     
+    @IBOutlet weak var touchView: UIView!
     var map: Map!
     var cats = [Cat]()
     
@@ -30,14 +32,19 @@ class ViewController: UIViewController{
         
         map = Map()
         
-        cats.append(Cat())
-        cats.append(Cat())
+        for index in 1...8 {
+            cats.append(Cat())
+        }
         
         for cat in cats {
             print(cat.position.x)
             print(cat.position.y)
         }
         
+        let cat1 = Cat()
+        cat1.position.x = 1
+        cat1.position.y = 0
+        cats.append(cat1)
         updatePositionLabel()
         
         print(map.coordinates[1][2])
@@ -63,10 +70,25 @@ class ViewController: UIViewController{
     }
     
     func checkForCat() {
-        removeCats()
+        removeCatsFromView()
         for cat in cats {
             if cat.position.x == playerX && cat.position.y == playerY {
                 drawCat(cat: cat)
+            }
+        }
+    }
+    
+    func checkForCatsInSameCoordinates(cats: [Cat]) {
+        var catsXValue = [Int]()
+        var catsYValue = [Int]()
+        for cat in cats {
+            if !catsYValue.contains(cat.position.y) && !catsXValue.contains(cat.position.x){
+                catsXValue.append(cat.position.x)
+                catsYValue.append(cat.position.y)
+            } else {
+                cat.changePosition(of: cat)
+                //checkForCatsInSameCoordinates(cats: cats)
+                return
             }
         }
     }
@@ -76,6 +98,10 @@ class ViewController: UIViewController{
     }
     
     func moveToNewPosition() {
+        for cat in cats {
+            cat.addMoveCount(to: cat)
+        }
+        checkForCatsInSameCoordinates(cats: cats)
         fadeScreen()
     }
     
@@ -83,7 +109,7 @@ class ViewController: UIViewController{
         for recognizer in gestureRecognizers {
             recognizer.isEnabled = false
         }
-        
+        self.backGroundView.bringSubviewToFront(fadeView)
         UIView.animate(withDuration: 1.0, animations: {
             self.fadeView.alpha = 1.0
         }) { (completion) in
@@ -94,6 +120,7 @@ class ViewController: UIViewController{
                 for recognizer in self.gestureRecognizers {
                     recognizer.isEnabled = true
                 }
+                self.backGroundView.sendSubviewToBack(self.fadeView)
             }
         }
     }
@@ -101,20 +128,39 @@ class ViewController: UIViewController{
     func drawCat(cat: Cat) {
         let catImage = cat.sprite
         
-        let catImageView = UIImageView(image: catImage)
+        let catButton = UIButton()
         
-        catImageView.frame = CGRect(x: 10, y: 471, width: 130, height: 130)
-        catView.addSubview(catImageView)
+        catButton.setBackgroundImage(catImage, for: .normal)
         
+        catButton.frame = CGRect(x: 10, y: 471, width: 130, height: 130)
+        catButton.addTarget(self, action:#selector(self.catTapped(_:)), for: .touchUpInside)
+        
+        touchView.addSubview(catButton)
+        
+        catButton.isUserInteractionEnabled = true
     }
     
-    func removeCats() {
-        for subView in catView.subviews {
+    func removeCatsFromView() {
+        for subView in touchView.subviews {
             subView.removeFromSuperview()
         }
     }
-
-
+    
+    func removeCatFromGame() {
+        removeCatsFromView()
+        var index = 0
+        for cat in cats {
+            if cat.position.x == playerX && cat.position.y == playerY {
+                cats.remove(at: index)
+                print("removed cat")
+            }
+            index += 1
+        }
+    }
+    @objc func catTapped(_ sender: UIButton?) {
+        print("tapped")
+        removeCatFromGame()
+    }
 
     //swipe functions
     @IBAction func upGesture(_ sender: Any) {

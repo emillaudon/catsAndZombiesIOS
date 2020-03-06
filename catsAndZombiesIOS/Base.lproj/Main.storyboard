@@ -94,9 +94,11 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
+                        <outlet property="backGroundView" destination="8bC-Xf-vdC" id="l3W-1I-2Ny"/>
                         <outlet property="catView" destination="j35-Fs-BPt" id="A2Q-sh-k07"/>
                         <outlet property="fadeView" destination="6pb-5o-SZz" id="vWR-0j-KHb"/>
                         <outlet property="positionLabel" destination="x6r-5T-dhX" id="UY4-Jw-ZVy"/>
+                        <outlet property="touchView" destination="xfv-1w-fal" id="9Z1-Zg-oiZ"/>
                         <outletCollection property="backgroundLayers" destination="g9Y-VF-kmB" collectionClass="NSMutableArray" id="2g8-GT-o1e"/>
                         <outletCollection property="backgroundLayers" destination="YpY-lh-V0e" collectionClass="NSMutableArray" id="Ufd-Qp-gH4"/>
                         <outletCollection property="backgroundLayers" destination="XA8-id-53h" collectionClass="NSMutableArray" id="tpQ-4g-WHR"/>
