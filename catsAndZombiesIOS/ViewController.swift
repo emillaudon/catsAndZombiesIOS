@@ -79,16 +79,19 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate{
     }
     
     func checkForCatsInSameCoordinates(cats: [Cat]) {
-        var catsXValue = [Int]()
-        var catsYValue = [Int]()
+        var cat1: Cat
+        var cat2: Cat
         for cat in cats {
-            if !catsYValue.contains(cat.position.y) && !catsXValue.contains(cat.position.x){
-                catsXValue.append(cat.position.x)
-                catsYValue.append(cat.position.y)
-            } else {
-                cat.changePosition(of: cat)
-                //checkForCatsInSameCoordinates(cats: cats)
-                return
+            cat1 = cat
+            for cat in cats {
+                cat2 = cat
+                if cat1.position == cat2.position && cat1 != cat2 {
+                    repeat {
+                        cat.changePosition()
+                        print("cats at same pos. moved.")
+                    } while cat1.position == cat2.position && cat1 != cat2
+                    
+                }
             }
         }
     }

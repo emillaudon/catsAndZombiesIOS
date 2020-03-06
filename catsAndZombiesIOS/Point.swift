@@ -8,12 +8,20 @@
 
 import Foundation
 
-class Point {
+class Point: Comparable {
     var x: Int
     var y: Int
     
     init(x: Int, y: Int) {
         self.x = x
         self.y = y
+    }
+    
+    static func < (lhs: Point, rhs: Point) -> Bool {
+        return true
+    }
+    
+    static func == (lhs: Point, rhs: Point) -> Bool {
+        return lhs.x == rhs.x && lhs.y == rhs.y
     }
 }
