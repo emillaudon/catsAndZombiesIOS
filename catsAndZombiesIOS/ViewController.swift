@@ -25,6 +25,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate{
     @IBOutlet weak var touchView: UIView!
     var map: Map!
     var cats = [Cat]()
+    var zombies = [Zombie]()
     
     var playerX = 0
     var playerY = 0
@@ -40,6 +41,8 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate{
         for index in 1...20 {
             cats.append(Cat())
         }
+        
+        zombies.append(Zombie())
         
         for cat in cats {
             print(cat.position.x)
@@ -112,6 +115,9 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate{
     func moveToNewPosition() {
         for cat in cats {
             cat.addMoveCount(to: cat)
+        }
+        for zombie in zombies {
+            zombie.addPlayerMoveToZombie(playerX: playerX, playerY: playerY)
         }
         checkForCatsInSameCoordinates(cats: cats)
         fadeScreen()
