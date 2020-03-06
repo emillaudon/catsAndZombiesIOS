@@ -83,11 +83,19 @@
                                     <outletCollection property="gestureRecognizers" destination="o0m-oy-cBc" appends="YES" id="Kas-PW-evb"/>
                                 </connections>
                             </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cats Caught: 0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0hL-Rv-IBQ">
+                                <rect key="frame" x="10" y="0.0" width="114.5" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.46441596746444702" green="0.5746036171913147" blue="0.70198339223861694" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
+                            <constraint firstItem="0hL-Rv-IBQ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="10" id="8j2-Db-Qdk"/>
                             <constraint firstItem="xfv-1w-fal" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="I1X-9Z-ki5"/>
                             <constraint firstItem="xfv-1w-fal" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Ljf-x5-gJK"/>
+                            <constraint firstItem="0hL-Rv-IBQ" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="bY7-z9-ZTD"/>
                             <constraint firstItem="xfv-1w-fal" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="ewk-LR-I4V"/>
                             <constraint firstItem="xfv-1w-fal" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="hCg-Wa-aeE"/>
                         </constraints>
@@ -95,6 +103,7 @@
                     </view>
                     <connections>
                         <outlet property="backGroundView" destination="8bC-Xf-vdC" id="l3W-1I-2Ny"/>
+                        <outlet property="catCountLabel" destination="0hL-Rv-IBQ" id="dH6-td-uAH"/>
                         <outlet property="catView" destination="j35-Fs-BPt" id="A2Q-sh-k07"/>
                         <outlet property="fadeView" destination="6pb-5o-SZz" id="vWR-0j-KHb"/>
                         <outlet property="positionLabel" destination="x6r-5T-dhX" id="UY4-Jw-ZVy"/>

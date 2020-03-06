@@ -10,9 +10,12 @@ import UIKit
 
 class ViewController: UIViewController, UIGestureRecognizerDelegate{
     
+    @IBOutlet weak var positionLabel: UILabel!
+    @IBOutlet weak var catCountLabel: UILabel!
+    
     @IBOutlet var backGroundView: UIView!
     @IBOutlet var backgroundLayers: [UIImageView]!
-    @IBOutlet weak var positionLabel: UILabel!
+
     @IBOutlet var gestureRecognizers: [UISwipeGestureRecognizer]!
     
     @IBOutlet weak var fadeView: UIView!
@@ -26,13 +29,15 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate{
     var playerX = 0
     var playerY = 0
     
+    var catsCaught = 0
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         map = Map()
         
-        for index in 1...8 {
+        for index in 1...20 {
             cats.append(Cat())
         }
         
@@ -94,6 +99,10 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate{
                 }
             }
         }
+    }
+    
+    func updateCatCountLabel() {
+        catCountLabel.text = "Cats Caught: \(catsCaught)"
     }
     
     func updatePositionLabel() {
@@ -162,6 +171,8 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate{
     }
     @objc func catTapped(_ sender: UIButton?) {
         print("tapped")
+        catsCaught += 1
+        updateCatCountLabel()
         removeCatFromGame()
     }
 
