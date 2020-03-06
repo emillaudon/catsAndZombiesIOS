@@ -144,12 +144,19 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate{
         
         catButton.setBackgroundImage(catImage, for: .normal)
         
-        catButton.frame = CGRect(x: 10, y: 471, width: 130, height: 130)
+        catButton.frame = CGRect(x: 10, y: 451, width: 130, height: 130)
         catButton.addTarget(self, action:#selector(self.catTapped(_:)), for: .touchUpInside)
         
         touchView.addSubview(catButton)
         
         catButton.isUserInteractionEnabled = true
+        animateCat(cat: catButton)
+    }
+    
+    func animateCat(cat: UIButton) {
+        UIView.animate(withDuration: 0.5, delay: 0, options: [.repeat, .autoreverse, .allowUserInteraction], animations: {
+            cat.frame.origin = CGPoint(x: cat.frame.origin.x, y: cat.frame.origin.y + 25)
+        }, completion: nil)
     }
     
     func removeCatsFromView() {
