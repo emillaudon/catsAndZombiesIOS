@@ -7,14 +7,17 @@
 //
 
 import Foundation
+import SpriteKit
 
 class Zombie {
     var position: Point
     var playerMovesSinceMoving: Int
+    let walkingAtlas: SKTextureAtlas
     
     init() {
         self.position = Point(x: Int.random(in: 5...6), y: Int.random(in: 3...6))
         self.playerMovesSinceMoving = 0
+        self.walkingAtlas = SKTextureAtlas(named: "zombieWalkAtlas")
     }
     
     func addPlayerMoveToZombie(playerX: Int, playerY: Int) {

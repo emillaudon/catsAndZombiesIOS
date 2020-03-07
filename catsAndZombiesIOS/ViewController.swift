@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import SpriteKit
+import SceneKit
 
 class ViewController: UIViewController, UIGestureRecognizerDelegate{
     
@@ -23,6 +25,8 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate{
     @IBOutlet weak var catView: UIView!
     
     @IBOutlet weak var touchView: UIView!
+    let screenSize:CGRect = UIScreen.main.bounds
+    
     var map: Map!
     var cats = [Cat]()
     var zombies = [Zombie]()
@@ -58,7 +62,67 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate{
         print(map.coordinates[1][2])
         
         updateLayers(using: map)
+        
+        gameOver()
+        
+        
+        
+        
+        
 
+    }
+    
+    func gameOver() {
+        let sceneView = SKView(frame: CGRect(x: 0, y: 0, width: screenSize.width, height: screenSize.size.height ))
+        let scene = SKScene()
+        scene.scaleMode = SKSceneScaleMode.resizeFill
+        
+        sceneView.allowsTransparency = true
+        sceneView.backgroundColor = .clear
+        scene.backgroundColor = .clear
+        // Do any other scene setup here
+        view.addSubview(sceneView)
+        sceneView.presentScene(scene)
+        //view.bringSubviewToFront(touchView)
+        buildWalkingZombie(zombies[0], in: scene)
+    }
+    
+    func buildWalkingZombie(_ zombie: Zombie, in SKScene: SKScene)  {
+        let zombieWalkingAtlas = zombie.walkingAtlas
+        var walkFrames: [SKTexture] = []
+        
+        let numberOfImages = zombieWalkingAtlas.textureNames.count
+        
+        for i in 1...numberOfImages {
+            let zombieTextureName = "Walk\(i)"
+            walkFrames.append(zombieWalkingAtlas.textureNamed(zombieTextureName))
+        }
+        let firstFrameTexture = walkFrames[0]
+        let zombie = SKSpriteNode(texture: firstFrameTexture)
+        zombie.position = CGPoint(x: -50, y: 155)
+        zombie.scale(to: CGSize(width: 100, height:188))
+        //zombie.xScale = -1
+        
+        SKScene.addChild(zombie)
+        print("child added")
+        animateZombieAndFadeScreen(zombie, frames: walkFrames)
+    }
+    
+    func animateZombieAndFadeScreen(_ zombie: SKSpriteNode, frames: [SKTexture]) {
+        zombie.run(SKAction.repeatForever(
+            SKAction.animate(with: frames,
+                             timePerFrame: 0.12, resize: true,
+                             restore: true)))
+        
+        
+        zombie.run(SKAction.moveTo(x: 200, duration: 5)) {
+            zombie.run(SKAction.scale(by: 2, duration: 10))
+            UIView.animate(withDuration: 3.0, animations: {
+                self.fadeView.alpha = 1.0
+            }) { (completion) in
+                //TODO: Add Zombie fading out
+            }
+        }
     }
     
     func updateLayers(using map: Map) {
@@ -221,6 +285,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate{
             moveToNewPosition()
         }
     }
+    
     
 }
 
