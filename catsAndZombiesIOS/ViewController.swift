@@ -12,6 +12,8 @@ import SceneKit
 
 class ViewController: UIViewController, UIGestureRecognizerDelegate{
     
+    @IBOutlet weak var restartButton: UIButton!
+    @IBOutlet var gameOverLabels: [UILabel]!
     @IBOutlet weak var positionLabel: UILabel!
     @IBOutlet weak var catCountLabel: UILabel!
     
@@ -220,6 +222,34 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate{
         zombies[0].position = Point(x: 0, y: 1)
     }
     
+    func showGameOverTextAndButton() {
+        backGroundView.bringSubviewToFront(touchView)
+        touchView.alpha = 1.0
+        UIView.animate(withDuration: 0.6, animations: {
+            self.gameOverLabels[0].alpha = 1.0
+        }) { (completion) in
+            UIView.animate(withDuration: 0.6, animations: {
+                self.gameOverLabels[1].alpha = 1.0
+            }) { (completion) in
+//                self.backGroundView.sendSubviewToBack(self.touchView)
+//                let tempBlackView = UIView(frame: self.screenSize)
+//                tempBlackView.backgroundColor = .black
+//                self.backGroundView.addSubview(tempBlackView)
+//                self.fadeView.backgroundColor = .clear
+//                self.backGroundView.bringSubviewToFront(self.fadeView)
+                
+                UIView.animate(withDuration: 0.6, animations: {
+                    self.gameOverLabels[2].alpha = 1.0
+                }) { (completion) in
+                    print(self.gameOverLabels[1].alpha)
+                   self.restartButton.isHidden = false
+                   self.restartButton.alpha = 1.0
+                }
+            }
+        }
+    }
+
+    
     func buildWalkingZombie(_ zombie: Zombie, in SKScene: SKScene)  {
         
         let zombieWalkingAtlas = zombie.walkingAtlas
@@ -256,7 +286,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate{
             UIView.animate(withDuration: 3.0, animations: {
                 self.fadeView.alpha = 1.0
             }) { (completion) in
-                //TODO: Add Zombie fading out
+                self.showGameOverTextAndButton()
             }
         }
     }
