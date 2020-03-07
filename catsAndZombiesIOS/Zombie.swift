@@ -19,10 +19,15 @@ class Zombie {
         self.playerMovesSinceMoving = 0
         self.walkingAtlas = SKTextureAtlas(named: "zombieWalkAtlas")
     }
+    init(x: Int, y: Int) {
+        self.position = Point(x: x, y: y)
+        self.playerMovesSinceMoving = 0
+        self.walkingAtlas = SKTextureAtlas(named: "zombieWalkAtlas")
+    }
     
     func addPlayerMoveToZombie(playerX: Int, playerY: Int) {
         self.playerMovesSinceMoving += 1
-        if self.playerMovesSinceMoving > 2 {
+        if self.playerMovesSinceMoving > 1 {
             self.moveZombie(playerX: playerX, playerY: playerY)
             print("zombie moved")
         }
