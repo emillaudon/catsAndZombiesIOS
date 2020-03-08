@@ -10,7 +10,10 @@ import UIKit
 import SpriteKit
 import SceneKit
 
-class ViewController: UIViewController, UIGestureRecognizerDelegate{
+class ViewController: UIViewController, UIGestureRecognizerDelegate, UICollectionViewDelegate, UICollectionViewDataSource {
+    
+    
+    @IBOutlet weak var mapCollectionView: UICollectionView!
     
     @IBOutlet weak var restartButton: UIButton!
     @IBOutlet var gameOverLabels: [UILabel]!
@@ -40,6 +43,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate{
     
 
     override func viewDidLoad() {
+        setUpCollectionViewCells()
         super.viewDidLoad()
         view.bringSubviewToFront(fadeView)
         fadeView.alpha = 1.0
@@ -390,6 +394,43 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate{
         return true
     }
     
+    func setUpCollectionViewCells() {
+        let layout = UICollectionViewFlowLayout()
+        
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        
+        let padding: CGFloat = 0
+        
+        let itemWidth = mapCollectionView.frame.width/7 - padding
+        let itemHeight = mapCollectionView.frame.height/7 - padding
+        
+        layout.itemSize = CGSize(width: itemWidth, height: itemHeight)
+        layout.minimumLineSpacing = 0
+        layout.minimumInteritemSpacing = 0
+        
+        mapCollectionView.collectionViewLayout = layout
+    }
+    
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 49
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "mapCell", for: indexPath) as! UICollectionViewCell
+        cell.layer.borderColor = UIColor.black.cgColor
+        cell.layer.borderWidth = 0.5
+//        cell.frame.height = mapCollectionView.frame.height/7
+//        cell.frame.width = mapCollectionView.frame.width/7
+//        cell.frame = CGRect(x: cell.frame.origin.x, y: cell.frame.origin.y, width: mapCollectionView.frame.width/7, height: mapCollectionView.frame.height/7)
+        
+        cell.frame = CGRect(x: cell.frame.origin.x, y: cell.frame.origin.y, width: mapCollectionView.frame.width/7, height: mapCollectionView.frame.height/7)
+        
+        //let cell = UICollectionViewCell(frame:
+        
+        return cell
+        
+    }
     
     
 }

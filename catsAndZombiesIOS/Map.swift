@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 class Map {
     var coordinates = [[[Int]]]()
@@ -29,6 +30,9 @@ class Map {
     
 }
 
+class MapCell: UICollectionViewCell {
+    
+}
 //
 //map = [];
 //    for (k = 0; k < 7; k += 1) {
