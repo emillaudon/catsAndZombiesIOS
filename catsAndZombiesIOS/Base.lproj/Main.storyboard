@@ -3,6 +3,7 @@
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -88,12 +89,13 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button hidden="YES" opaque="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E3x-Ei-RMg">
-                                        <rect key="frame" x="146.5" y="188" width="82" height="30"/>
+                                        <rect key="frame" x="130" y="199" width="121" height="38"/>
                                         <color key="backgroundColor" red="0.14509573579999999" green="0.14509683849999999" blue="0.1450997591" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="82" id="FGs-Bc-UGh"/>
-                                            <constraint firstAttribute="height" constant="30" id="zcv-xu-gr0"/>
+                                            <constraint firstAttribute="width" constant="121" id="Iu5-t0-2sK"/>
+                                            <constraint firstAttribute="height" constant="38" id="iXZ-oa-bdf"/>
                                         </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="28"/>
                                         <state key="normal" title="Restart?">
                                             <color key="titleColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                         </state>
@@ -103,10 +105,10 @@
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="Jhy-Td-zHc" secondAttribute="trailing" constant="9.5" id="0ci-QY-W2R"/>
                                     <constraint firstItem="Fxr-05-0lx" firstAttribute="top" secondItem="6pb-5o-SZz" secondAttribute="top" constant="47" id="1OL-6m-aTt"/>
+                                    <constraint firstItem="E3x-Ei-RMg" firstAttribute="top" secondItem="Ve5-46-vM0" secondAttribute="bottom" constant="30.5" id="4iV-UQ-sei"/>
+                                    <constraint firstItem="E3x-Ei-RMg" firstAttribute="leading" secondItem="6pb-5o-SZz" secondAttribute="leading" constant="130" id="7AO-VC-rhp"/>
                                     <constraint firstItem="Ve5-46-vM0" firstAttribute="centerX" secondItem="6pb-5o-SZz" secondAttribute="centerX" id="JPk-dD-pfl"/>
                                     <constraint firstItem="Ve5-46-vM0" firstAttribute="top" secondItem="Jhy-Td-zHc" secondAttribute="bottom" constant="10" id="L3T-2u-pzM"/>
-                                    <constraint firstItem="E3x-Ei-RMg" firstAttribute="centerX" secondItem="Ve5-46-vM0" secondAttribute="centerX" id="WWr-Qj-5fu"/>
-                                    <constraint firstItem="E3x-Ei-RMg" firstAttribute="top" secondItem="Ve5-46-vM0" secondAttribute="bottom" constant="19.5" id="hCY-Sc-EU4"/>
                                     <constraint firstItem="Jhy-Td-zHc" firstAttribute="top" secondItem="6pb-5o-SZz" secondAttribute="top" constant="78" id="jbm-zU-QTb"/>
                                     <constraint firstItem="Fxr-05-0lx" firstAttribute="leading" secondItem="6pb-5o-SZz" secondAttribute="leading" constant="49" id="wQY-7k-rAQ"/>
                                 </constraints>
@@ -138,6 +140,7 @@
                             <constraint firstItem="xfv-1w-fal" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="Kjs-i6-bm7"/>
                             <constraint firstItem="xfv-1w-fal" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="Ljf-x5-gJK"/>
                             <constraint firstAttribute="bottom" secondItem="6pb-5o-SZz" secondAttribute="bottom" id="QAH-27-SY2"/>
+                            <constraint firstItem="xfv-1w-fal" firstAttribute="centerX" secondItem="Ve5-46-vM0" secondAttribute="centerX" id="WEZ-e7-3qd"/>
                             <constraint firstItem="0hL-Rv-IBQ" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="bY7-z9-ZTD"/>
                             <constraint firstItem="6pb-5o-SZz" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="dVR-F0-lwJ"/>
                             <constraint firstItem="xfv-1w-fal" firstAttribute="bottom" secondItem="8bC-Xf-vdC" secondAttribute="bottom" id="ewk-LR-I4V"/>
@@ -146,6 +149,7 @@
                             <constraint firstItem="6pb-5o-SZz" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="rqR-QX-fp5"/>
                             <constraint firstAttribute="trailing" secondItem="6pb-5o-SZz" secondAttribute="trailing" id="wIC-Z9-K7S"/>
                         </constraints>
+                        <viewLayoutGuide key="safeArea" id="pI6-Sj-Bkm"/>
                     </view>
                     <connections>
                         <outlet property="backGroundView" destination="8bC-Xf-vdC" id="l3W-1I-2Ny"/>

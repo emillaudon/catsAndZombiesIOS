@@ -207,7 +207,8 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate{
     
     func gameOver() {
         backGroundView.bringSubviewToFront(fadeView)
-        let sceneView = SKView(frame: CGRect(x: 0, y: 0, width: screenSize.width, height: screenSize.size.height ))
+        
+        let sceneView = SKView(frame: CGRect(x: 0, y: screenSize.height/2, width: screenSize.width, height: screenSize.size.height/2 ))
         let scene = SKScene()
         scene.scaleMode = SKSceneScaleMode.resizeFill
         
@@ -219,16 +220,17 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate{
         sceneView.presentScene(scene)
         //view.bringSubviewToFront(touchView)
         buildWalkingZombie(zombies[0], in: scene)
-        zombies[0].position = Point(x: 0, y: 1)
     }
     
+    
     func showGameOverTextAndButton() {
-        backGroundView.bringSubviewToFront(touchView)
+        //backGroundView.bringSubviewToFront(touchView)
         touchView.alpha = 1.0
+        backGroundView.bringSubviewToFront(self.restartButton)
         UIView.animate(withDuration: 0.6, animations: {
             self.gameOverLabels[0].alpha = 1.0
         }) { (completion) in
-            UIView.animate(withDuration: 0.6, animations: {
+            UIView.animate(withDuration: 0.8, animations: {
                 self.gameOverLabels[1].alpha = 1.0
             }) { (completion) in
 //                self.backGroundView.sendSubviewToBack(self.touchView)
@@ -238,7 +240,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate{
 //                self.fadeView.backgroundColor = .clear
 //                self.backGroundView.bringSubviewToFront(self.fadeView)
                 
-                UIView.animate(withDuration: 0.6, animations: {
+                UIView.animate(withDuration: 0.8, animations: {
                     self.gameOverLabels[2].alpha = 1.0
                 }) { (completion) in
                     print(self.gameOverLabels[1].alpha)
