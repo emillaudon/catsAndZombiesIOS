@@ -64,6 +64,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, UICollectio
         setStartingPositionAndScore()
         
         updatePositionLabel()
+        updateCatCountLabel()
         
         mapCollectionView.reloadData()
         
@@ -137,6 +138,18 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, UICollectio
         }
     }
     
+    func checkForZombiessInNearbyCoordinates() -> [Zombie] {
+        var nearbyZombies = [Zombie]()
+        let currentPlayerIndexPathRow = getIndexPathRowFromCoordinates(x: playerX, y: playerY)
+        for zombie in zombies {
+            if compareCoordinatesToPlayer(position: zombie.position) {
+                nearbyZombies.append(zombie)
+            }
+        }
+        
+        return nearbyZombies
+    }
+    
     func checkForCatsInSameCoordinates(cats: [Cat]) {
         var cat1: Cat
         var cat2: Cat
@@ -152,6 +165,26 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, UICollectio
                     
                 }
             }
+        }
+    }
+    
+    func checkForCatsInNearbyCoordinates() -> [Cat]{
+        var nearbyCats = [Cat]()
+        let currentPlayerIndexPathRow = getIndexPathRowFromCoordinates(x: playerX, y: playerY)
+        for cat in cats {
+            if compareCoordinatesToPlayer(position: cat.position) {
+                nearbyCats.append(cat)
+            }
+        }
+        
+        return nearbyCats
+    }
+    
+    func compareCoordinatesToPlayer(position: Point) -> Bool{
+        if position.x >= playerX - 1 && position.x <= playerX + 1 && position.y >= playerY - 1 && position.y <= playerY {
+             return true
+        } else {
+            return false
         }
     }
     
@@ -336,13 +369,11 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, UICollectio
         }
     }
     
-    func getIndexPathRowFromCoordinates() -> Int {
-        let currentXCoordinate = playerX
-        let currentYCoordinate = playerY
+    func getIndexPathRowFromCoordinates(x: Int, y: Int) -> Int {
         
         let baseRowValue = 42
         
-        let currentRowValue = 42 - (7 * playerY) + playerX
+        let currentRowValue = 42 - (7 * y) + x
         
         return currentRowValue
     }
@@ -439,11 +470,37 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, UICollectio
         
         cell.backgroundView?.removeFromSuperview()
     
-        print("coordinate: \(getIndexPathRowFromCoordinates())")
+        print("coordinate: \(getIndexPathRowFromCoordinates(x: playerX, y: playerY))")
         
-            print(indexPath.row)
+        print(indexPath.row)
+        let nearbyZombies = checkForZombiessInNearbyCoordinates()
         
-        if indexPath.row == getIndexPathRowFromCoordinates(){
+        for zombie in nearbyZombies {
+            if indexPath.row == getIndexPathRowFromCoordinates(x: zombie.position.x, y: zombie.position.y) {
+                let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: cell.frame.width - 0.5, height: cell.frame.height - 0.5))
+                
+                let image = UIImage(named: "Walk1")
+                imageView.image = image
+                cell.backgroundView = UIView()
+                cell.backgroundView!.addSubview(imageView)
+                print("put zombie image")
+            }
+        }
+        
+        let nearbyCats = checkForCatsInNearbyCoordinates()
+        for cat in nearbyCats {
+            if indexPath.row == getIndexPathRowFromCoordinates(x: cat.position.x, y: cat.position.y) {
+                let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: cell.frame.width - 0.5, height: cell.frame.height - 0.5))
+                
+                let image = cat.sprite
+                imageView.image = image
+                cell.backgroundView = UIView()
+                cell.backgroundView!.addSubview(imageView)
+                print("put cat image")
+            }
+        }
+        
+        if indexPath.row == getIndexPathRowFromCoordinates(x: playerX, y: playerY){
             let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: cell.frame.width - 0.5, height: cell.frame.height - 0.5))
             
             let image = UIImage(named: "player")
