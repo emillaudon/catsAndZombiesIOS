@@ -41,33 +41,62 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate{
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.bringSubviewToFront(fadeView)
+        fadeView.alpha = 1.0
         
-        map = Map()
+        startNewGame()
         
-        for index in 1...20 {
-            cats.append(Cat())
-        }
-        
-        zombies.append(Zombie())
-        zombies.append(Zombie())
         zombies.append(Zombie(x: 0, y: 1))
         
-        for cat in cats {
-            print(cat.position.x)
-            print(cat.position.y)
-        }
+    }
+    
+    func startNewGame() {
+        map = Map()
         
-        let cat1 = Cat()
-        cat1.position.x = 0
-        cat1.position.y = 0
-        cats.append(cat1)
+        addCats(20)
+        
+        addZombies(3)
+        
+        setStartingPositionAndScore()
+        
         updatePositionLabel()
         
         print(map.coordinates[1][2])
         
         updateLayers(using: map)
+        
+        fadeInToNewGame()
     }
     
+    func addCats(_ amount: Int) {
+        cats.removeAll()
+        for _ in 1...amount {
+            cats.append(Cat())
+        }
+    }
+    
+    func addZombies(_ amount: Int) {
+        zombies.removeAll()
+        for _ in 1...amount {
+            zombies.append(Zombie())
+        }
+    }
+    
+    func setStartingPositionAndScore() {
+        playerX = 0
+        playerY = 0
+        
+        catsCaught = 0
+    }
+    
+    func fadeInToNewGame() {
+        UIView.animate(withDuration: 0.5, animations: {
+            self.fadeView.alpha = 0.0
+        }) { (completion) in
+            self.view.sendSubviewToBack(self.fadeView)
+            self.view.bringSubviewToFront(self.touchView)
+        }
+    }
     
     func updateLayers(using map: Map) {
         checkForCat()
@@ -225,7 +254,6 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate{
     
     func showGameOverTextAndButton() {
         //backGroundView.bringSubviewToFront(touchView)
-        touchView.alpha = 1.0
         backGroundView.bringSubviewToFront(self.restartButton)
         UIView.animate(withDuration: 0.6, animations: {
             self.gameOverLabels[0].alpha = 1.0
@@ -233,22 +261,31 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate{
             UIView.animate(withDuration: 0.8, animations: {
                 self.gameOverLabels[1].alpha = 1.0
             }) { (completion) in
-//                self.backGroundView.sendSubviewToBack(self.touchView)
-//                let tempBlackView = UIView(frame: self.screenSize)
-//                tempBlackView.backgroundColor = .black
-//                self.backGroundView.addSubview(tempBlackView)
-//                self.fadeView.backgroundColor = .clear
-//                self.backGroundView.bringSubviewToFront(self.fadeView)
-                
                 UIView.animate(withDuration: 0.8, animations: {
                     self.gameOverLabels[2].alpha = 1.0
                 }) { (completion) in
-                    print(self.gameOverLabels[1].alpha)
-                   self.restartButton.isHidden = false
-                   self.restartButton.alpha = 1.0
+                    UIView.animate(withDuration: 0.8) {
+                        self.restartButton.isHidden = false
+                        self.restartButton.alpha = 1.0
+                        self.restartButton.isEnabled = true
+                    }
+                   
                 }
             }
         }
+    }
+    
+    func hideGameOverTextAndButton (completion:@escaping() -> ()) {
+        UIView.animate(withDuration: 0.5, animations: {
+            for label in self.gameOverLabels {
+                label.alpha = 0
+            }
+            self.restartButton.alpha = 0
+            self.restartButton.isEnabled = false
+        }) { (completed) in
+            completion()
+        }
+
     }
 
     
@@ -331,6 +368,24 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate{
             moveToNewPosition()
         }
     }
+    
+    @IBAction func restartButtonTapped(_ sender: Any) {
+        hideGameOverTextAndButton {
+            self.startNewGame()
+        }
+        
+        for subView in view.subviews {
+            if subView is SKView {
+                UIView.animate(withDuration: 0.3, animations: {
+                    subView.alpha = 0.0
+                }) { (completion) in
+                    subView.removeFromSuperview()
+                }
+            }
+        }
+        
+    }
+    
     
     
 }
