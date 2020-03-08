@@ -386,6 +386,10 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate{
         
     }
     
+    override var prefersStatusBarHidden: Bool {
+        return true
+    }
+    
     
     
 }
