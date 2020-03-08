@@ -65,7 +65,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, UICollectio
         
         updatePositionLabel()
         
-        print(map.coordinates[1][2])
+        mapCollectionView.reloadData()
         
         updateLayers(using: map)
         
@@ -173,6 +173,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, UICollectio
         checkForCatsInSameCoordinates(cats: cats)
         fadeScreen {
             self.checkForZombie()
+            
         }
         
     }
@@ -186,6 +187,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, UICollectio
             self.fadeView.alpha = 1.0
         }) { (comp) in
             self.updateLayers(using: self.map)
+            self.mapCollectionView.reloadData()
             UIView.animate(withDuration: 1.0, animations: {
                 self.fadeView.alpha = 0.0
             }) { (comp) in
@@ -333,6 +335,19 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, UICollectio
             }
         }
     }
+    
+    func getIndexPathRowFromCoordinates() -> Int {
+        let currentXCoordinate = playerX
+        let currentYCoordinate = playerY
+        
+        let baseRowValue = 42
+        
+        let currentRowValue = 42 - (7 * playerY) + playerX
+        
+        return currentRowValue
+    }
+    
+    
     @objc func catTapped(_ sender: UIButton?) {
         print("tapped")
         catsCaught += 1
@@ -418,16 +433,30 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, UICollectio
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "mapCell", for: indexPath) as! UICollectionViewCell
+        
         cell.layer.borderColor = UIColor.black.cgColor
         cell.layer.borderWidth = 0.5
-//        cell.frame.height = mapCollectionView.frame.height/7
-//        cell.frame.width = mapCollectionView.frame.width/7
-//        cell.frame = CGRect(x: cell.frame.origin.x, y: cell.frame.origin.y, width: mapCollectionView.frame.width/7, height: mapCollectionView.frame.height/7)
+        
+        cell.backgroundView?.removeFromSuperview()
+    
+        print("coordinate: \(getIndexPathRowFromCoordinates())")
+        
+            print(indexPath.row)
+        
+        if indexPath.row == getIndexPathRowFromCoordinates(){
+            let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: cell.frame.width - 0.5, height: cell.frame.height - 0.5))
+            
+            let image = UIImage(named: "player")
+            imageView.image = image
+            cell.backgroundView = UIView()
+            cell.backgroundView!.addSubview(imageView)
+            print("put image")
+        }
+        
+        
         
         cell.frame = CGRect(x: cell.frame.origin.x, y: cell.frame.origin.y, width: mapCollectionView.frame.width/7, height: mapCollectionView.frame.height/7)
-        
-        //let cell = UICollectionViewCell(frame:
-        
+ 
         return cell
         
     }
