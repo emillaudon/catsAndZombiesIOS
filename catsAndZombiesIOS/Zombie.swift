@@ -28,6 +28,7 @@ class Zombie {
     func addPlayerMoveToZombie(playerX: Int, playerY: Int) {
         self.playerMovesSinceMoving += 1
         if self.playerMovesSinceMoving > 1 {
+            self.playerMovesSinceMoving = 0
             self.moveZombie(playerX: playerX, playerY: playerY)
             print("zombie moved")
         }
