@@ -41,6 +41,8 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, UICollectio
     
     var catsCaught = 0
     
+    var observableSquares = 2
+    
 
     override func viewDidLoad() {
         setUpCollectionViewCells()
@@ -181,7 +183,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, UICollectio
     }
     
     func compareCoordinatesToPlayer(position: Point) -> Bool{
-        if position.x >= playerX - 1 && position.x <= playerX + 1 && position.y >= playerY - 1 && position.y <= playerY {
+        if position.x >= playerX - observableSquares && position.x <= playerX + observableSquares && position.y >= playerY - observableSquares && position.y <= playerY {
              return true
         } else {
             return false
