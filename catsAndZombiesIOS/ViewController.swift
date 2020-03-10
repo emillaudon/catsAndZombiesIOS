@@ -211,8 +211,6 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, UICollectio
     
     func updateCatCountLabel() {
         catCountLabel.text = "\(catsCaught)"
-        view.bringSubviewToFront(scoreView)
-        
     }
     
     func updatePositionLabel() {
@@ -529,7 +527,13 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, UICollectio
     
     @IBAction func saveAndRestartTapped(_ sender: Any) {
         toggleSettingsMenu()
-        startNewGame(zombies: Int(zombieSlider.value), cats: Int(catSlider.value))
+        view.bringSubviewToFront(fadeView)
+        self.view.sendSubviewToBack(self.scoreView)
+        UIView.animate(withDuration: 0.6, animations: {
+            self.fadeView.alpha = 1.0
+        }) { (complete) in
+            self.startNewGame(zombies: Int(self.zombieSlider.value), cats: Int(self.catSlider.value))
+        }
     }
     
     override var prefersStatusBarHidden: Bool {
