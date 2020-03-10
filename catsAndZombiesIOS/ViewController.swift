@@ -40,6 +40,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, UICollectio
     var playerY = 0
     
     var catsCaught = 0
+    var catsRequiredToWin = 3
     
     var observableSquares = 2
     
@@ -52,16 +53,17 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, UICollectio
         
         startNewGame()
         
-        zombies.append(Zombie(x: 0, y: 1))
-        
     }
     
     func startNewGame() {
         map = Map()
         
-        addCats(20)
+        addCats(1)
+        cats[0].position.x = 1
+        cats[0].position.y = 0
         
-        addZombies(3)
+        
+        addZombies(1)
         
         setStartingPositionAndScore()
         
@@ -73,9 +75,12 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, UICollectio
         updateLayers(using: map)
         
         fadeInToNewGame()
+        print(cats.count)
+        
     }
     
     func addCats(_ amount: Int) {
+        catsRequiredToWin = amount
         cats.removeAll()
         for _ in 1...amount {
             cats.append(Cat())
@@ -102,6 +107,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, UICollectio
         }) { (completion) in
             self.view.sendSubviewToBack(self.fadeView)
             self.view.bringSubviewToFront(self.touchView)
+            self.touchView.isUserInteractionEnabled = true
         }
     }
     
@@ -292,6 +298,27 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, UICollectio
         buildWalkingZombie(zombies[0], in: scene)
     }
     
+    func checkIfGameIsWon() {
+        if catsCaught == catsRequiredToWin {
+            print("win")
+            touchView.isUserInteractionEnabled = false
+            view.bringSubviewToFront(fadeView)
+            gameOverLabels[2].text = "You Win!"
+            
+            UIView.animate(withDuration: 1, animations: {
+                self.fadeView.alpha = 1.0
+                self.gameOverLabels[2].alpha = 1.0
+            }) { (complete) in
+                UIView.animate(withDuration: 0.6) {
+                    self.restartButton.alpha = 1.0
+                    self.restartButton.isHidden = false
+                    self.restartButton.isUserInteractionEnabled = true
+                    self.restartButton.isEnabled = true
+                }
+            }
+        }
+    }
+    
     
     func showGameOverTextAndButton() {
         //backGroundView.bringSubviewToFront(touchView)
@@ -386,6 +413,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, UICollectio
         catsCaught += 1
         updateCatCountLabel()
         removeCatFromGame()
+        checkIfGameIsWon()
     }
 
     //swipe functions
@@ -424,7 +452,9 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, UICollectio
     @IBAction func restartButtonTapped(_ sender: Any) {
         hideGameOverTextAndButton {
             self.startNewGame()
+            self.gameOverLabels[2].text = "Game Over"
         }
+        
         
         for subView in view.subviews {
             if subView is SKView {
