@@ -58,8 +58,8 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, UICollectio
     func startNewGame() {
         map = Map()
         
-        addCats(3)
-        cats[0].position.x = 2
+        addCats(1)
+        cats[0].position.x = 1
         cats[0].position.y = 0
         
         
@@ -452,8 +452,9 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, UICollectio
     @IBAction func restartButtonTapped(_ sender: Any) {
         hideGameOverTextAndButton {
             self.startNewGame()
+            self.gameOverLabels[2].text = "Game Over"
         }
-        gameOverLabels[2].text = "Game Over"
+        
         
         for subView in view.subviews {
             if subView is SKView {
