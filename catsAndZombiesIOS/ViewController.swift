@@ -12,7 +12,13 @@ import SceneKit
 
 class ViewController: UIViewController, UIGestureRecognizerDelegate, UICollectionViewDelegate, UICollectionViewDataSource {
     
+    @IBOutlet weak var settingsView: UIView!
+    @IBOutlet weak var zombieSlider: UISlider!
+    @IBOutlet weak var catSlider: UISlider!
+    @IBOutlet weak var zombieSlideCounter: UILabel!
+    @IBOutlet weak var catSlideCounter: UILabel!
     
+    @IBOutlet weak var scoreView: UIView!
     @IBOutlet weak var mapCollectionView: UICollectionView!
     
     @IBOutlet weak var restartButton: UIButton!
@@ -51,19 +57,20 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, UICollectio
         view.bringSubviewToFront(fadeView)
         fadeView.alpha = 1.0
         
-        startNewGame()
+        startNewGame(zombies: 1, cats: 3)
+        
+    
         
     }
     
-    func startNewGame() {
+    func startNewGame(zombies: Int, cats: Int) {
+        
         map = Map()
         
-        addCats(1)
-        cats[0].position.x = 1
-        cats[0].position.y = 0
+        addCats(cats)
         
         
-        addZombies(1)
+        addZombies(zombies)
         
         setStartingPositionAndScore()
         
@@ -75,7 +82,6 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, UICollectio
         updateLayers(using: map)
         
         fadeInToNewGame()
-        print(cats.count)
         
     }
     
@@ -107,6 +113,8 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, UICollectio
         }) { (completion) in
             self.view.sendSubviewToBack(self.fadeView)
             self.view.bringSubviewToFront(self.touchView)
+            
+            self.view.bringSubviewToFront(self.scoreView)
             self.touchView.isUserInteractionEnabled = true
         }
     }
@@ -196,8 +204,13 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, UICollectio
         }
     }
     
+    func updateSettingsLabels() {
+        zombieSlideCounter.text = String(Int(zombieSlider.value))
+        catSlideCounter.text = String(Int(catSlider.value))
+    }
+    
     func updateCatCountLabel() {
-        catCountLabel.text = "Cats Caught: \(catsCaught)"
+        catCountLabel.text = "\(catsCaught)"
     }
     
     func updatePositionLabel() {
@@ -407,6 +420,32 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, UICollectio
         return currentRowValue
     }
     
+    func toggleSettingsMenu() {
+        if settingsView.alpha == 1.0 {
+            UIView.animate(withDuration: 0.1, animations: {
+                
+                self.settingsView.alpha = 0.0
+            }) { (complete) in
+                self.view.sendSubviewToBack(self.settingsView)
+            }
+        } else if settingsView.alpha == 0.0 {
+            zombieSlider.value = Float(zombies.count)
+            catSlider.value = Float(cats.count)
+            updateSettingsLabels()
+            self.view.bringSubviewToFront(self.settingsView)
+            UIView.animate(withDuration: 0.1, animations: {
+                self.settingsView.alpha = 1.0
+            }) { (complete) in
+                
+            }
+        }
+    }
+    
+    func applySettingsAndRestart(zombieCount: Int, catCount: Int) {
+        toggleSettingsMenu()
+        startNewGame(zombies: zombieCount, cats: catCount)
+    }
+    
     
     @objc func catTapped(_ sender: UIButton?) {
         print("tapped")
@@ -449,9 +488,15 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, UICollectio
         }
     }
     
+    @IBAction func settingsButtonTapped(_ sender: Any) {
+        toggleSettingsMenu()
+    }
+    
+    
     @IBAction func restartButtonTapped(_ sender: Any) {
         hideGameOverTextAndButton {
-            self.startNewGame()
+            self.startNewGame(zombies: self.zombies.count, cats: self.catsRequiredToWin)
+            self.view.sendSubviewToBack(self.scoreView)
             self.gameOverLabels[2].text = "Game Over"
         }
         
@@ -466,6 +511,29 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, UICollectio
             }
         }
         
+    }
+    
+    @IBAction func zombieSliderChanged(_ sender: Any) {
+        updateSettingsLabels()
+    }
+    
+    @IBAction func catSliderChanged(_ sender: Any) {
+        updateSettingsLabels()
+    }
+    
+    @IBAction func discardButtonTapped(_ sender: Any) {
+        toggleSettingsMenu()
+    }
+    
+    @IBAction func saveAndRestartTapped(_ sender: Any) {
+        toggleSettingsMenu()
+        view.bringSubviewToFront(fadeView)
+        self.view.sendSubviewToBack(self.scoreView)
+        UIView.animate(withDuration: 0.6, animations: {
+            self.fadeView.alpha = 1.0
+        }) { (complete) in
+            self.startNewGame(zombies: Int(self.zombieSlider.value), cats: Int(self.catSlider.value))
+        }
     }
     
     override var prefersStatusBarHidden: Bool {
