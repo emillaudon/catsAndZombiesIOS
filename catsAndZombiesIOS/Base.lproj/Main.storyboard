@@ -164,31 +164,43 @@
                                             <constraint firstAttribute="width" constant="27" id="fpv-SV-fNq"/>
                                         </constraints>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x6r-5T-dhX" propertyAccessControl="none">
-                                        <rect key="frame" x="284" y="3" width="91" height="21"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0hL-Rv-IBQ" propertyAccessControl="none">
                                         <rect key="frame" x="35" y="3" width="11" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x6r-5T-dhX" propertyAccessControl="none">
+                                        <rect key="frame" x="142" y="0.0" width="91" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lab-V9-ZFp">
+                                        <rect key="frame" x="348" y="0.0" width="27" height="27"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="27" id="h83-rw-zjh"/>
+                                            <constraint firstAttribute="width" constant="27" id="kWj-vJ-zCl"/>
+                                        </constraints>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <state key="normal" image="gamecontroller.fill" catalog="system"/>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.2678990142044117" green="0.35833312159463465" blue="0.44229471713758362" alpha="0.93915881849315064" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
                                     <constraint firstItem="uaO-hK-eIp" firstAttribute="top" secondItem="LdD-cS-t5o" secondAttribute="top" id="3sV-95-uVA"/>
+                                    <constraint firstAttribute="bottom" secondItem="Lab-V9-ZFp" secondAttribute="bottom" id="9q9-JQ-a0X"/>
                                     <constraint firstAttribute="height" constant="27" id="DHe-fs-JeE"/>
                                     <constraint firstItem="uaO-hK-eIp" firstAttribute="top" secondItem="LdD-cS-t5o" secondAttribute="top" id="Dx2-tA-bwt"/>
                                     <constraint firstItem="uaO-hK-eIp" firstAttribute="leading" secondItem="LdD-cS-t5o" secondAttribute="leading" id="H8D-RN-vak"/>
+                                    <constraint firstAttribute="trailing" secondItem="Lab-V9-ZFp" secondAttribute="trailing" id="Nde-rc-T4i"/>
                                     <constraint firstItem="uaO-hK-eIp" firstAttribute="top" secondItem="LdD-cS-t5o" secondAttribute="top" id="O8a-qA-BD4"/>
                                     <constraint firstItem="uaO-hK-eIp" firstAttribute="leading" secondItem="LdD-cS-t5o" secondAttribute="leading" id="Sgz-Fq-FDI"/>
                                     <constraint firstItem="uaO-hK-eIp" firstAttribute="leading" secondItem="LdD-cS-t5o" secondAttribute="leading" id="Sxq-lj-ESy"/>
                                     <constraint firstItem="uaO-hK-eIp" firstAttribute="leading" secondItem="LdD-cS-t5o" secondAttribute="leading" id="TIl-rR-bFj"/>
                                     <constraint firstAttribute="bottom" secondItem="uaO-hK-eIp" secondAttribute="bottom" id="WzO-Ea-2OF"/>
+                                    <constraint firstItem="Lab-V9-ZFp" firstAttribute="top" secondItem="LdD-cS-t5o" secondAttribute="top" id="a1h-pb-8xA"/>
                                     <constraint firstItem="0hL-Rv-IBQ" firstAttribute="leading" secondItem="uaO-hK-eIp" secondAttribute="trailing" constant="8" id="bgY-tr-wET"/>
                                     <constraint firstItem="0hL-Rv-IBQ" firstAttribute="leading" secondItem="uaO-hK-eIp" secondAttribute="trailing" constant="8" id="dvX-Mc-NNu"/>
                                     <constraint firstAttribute="bottom" secondItem="uaO-hK-eIp" secondAttribute="bottom" id="hml-WG-YOX"/>
@@ -276,6 +288,7 @@
     </scenes>
     <resources>
         <image name="catIcon" width="40" height="35"/>
+        <image name="gamecontroller.fill" catalog="system" width="64" height="40"/>
         <image name="layer10" width="928" height="793"/>
         <image name="layer11" width="928" height="793"/>
         <image name="layer2" width="928" height="793"/>
