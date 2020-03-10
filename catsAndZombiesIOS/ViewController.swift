@@ -13,6 +13,7 @@ import SceneKit
 class ViewController: UIViewController, UIGestureRecognizerDelegate, UICollectionViewDelegate, UICollectionViewDataSource {
     
     
+    @IBOutlet weak var scoreView: UIView!
     @IBOutlet weak var mapCollectionView: UICollectionView!
     
     @IBOutlet weak var restartButton: UIButton!
@@ -197,7 +198,9 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, UICollectio
     }
     
     func updateCatCountLabel() {
-        catCountLabel.text = "Cats Caught: \(catsCaught)"
+        catCountLabel.text = "\(catsCaught)"
+        view.bringSubviewToFront(scoreView)
+        
     }
     
     func updatePositionLabel() {
@@ -452,6 +455,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, UICollectio
     @IBAction func restartButtonTapped(_ sender: Any) {
         hideGameOverTextAndButton {
             self.startNewGame()
+            self.view.sendSubviewToBack(self.scoreView)
             self.gameOverLabels[2].text = "Game Over"
         }
         
